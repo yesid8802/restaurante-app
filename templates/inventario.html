@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventario</title>
+</head>
+<body>
+
+<h1>📦 Inventario</h1>
+
+<table border="1">
+<tr>
+    <th>Ingrediente</th>
+    <th>Cantidad</th>
+</tr>
+
+{% for d in datos %}
+<tr>
+    <td>{{d[1]}}</td>
+    <td>{{d[2]}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

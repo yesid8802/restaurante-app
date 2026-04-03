@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurante PRO+</title>
+    <style>
+        body { font-family: Arial; display: flex; margin: 0; }
+
+        .productos { width: 60%; background: #f4f4f4; padding: 20px; }
+        .carrito { width: 40%; background: #222; color: white; padding: 20px; }
+
+        .btn {
+            width: 45%;
+            height: 100px;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        .finalizar {
+            width: 100%;
+            padding: 20px;
+            background: red;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="productos">
+    <h2>Usuario: {{session.user}} | Rol: {{session.rol}}</h2>
+
+    {% if session.rol == "admin" %}
+        <a href="/reportes"><button>📊 Reportes</button></a>
+        <a href="/inventario"><button>📦 Inventario</button></a>
+    {% endif %}
+
+    {% if session.rol in ["admin", "cocina"] %}
+        <a href="/cocina"><button>👨‍🍳 Cocina</button></a>
+    {% endif %}
+
+    <a href="/logout"><button>🚪 Salir</button></a>
+
+    <h1>🍗🍕 Productos</h1>
+
+    {% for p in productos %}
+        <a href="/add/{{p[0]}}">
+            <button class="btn">{{p[1]}}<br>$ {{p[2]}}</button>
+        </a>
+    {% endfor %}
+</div>
+
+<div class="carrito">
+    <h1>🛒 Pedido</h1>
+
+    {% for i in carrito %}
+    <p>
+        {{i.nombre}} x{{i.cantidad}}
+
+        <a href="/sumar/{{i.id}}"><button>➕</button></a>
+        <a href="/restar/{{i.id}}"><button>➖</button></a>
+    </p>
+    {% endfor %}
+
+    <h2>Total: ${{total}}</h2>
+
+    <a href="/finish">
+        <button class="finalizar">FINALIZAR VENTA</button>
+    </a>
+</div>
+
+</body>
+</html>
